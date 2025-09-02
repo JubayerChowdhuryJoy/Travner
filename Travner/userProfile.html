@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile - Travner</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center px-6 py-4 bg-[#a5e6c6]">
+  <h1 class="text-xl font-bold">Travner</h1>
+  <div class="flex items-center space-x-6">
+    <a href="landingPage.html" class="hover:underline">Home</a>
+    <a href="explore.html" class="hover:underline">Explore</a>
+    <a href="post.html" class="hover:underline">Post</a>
+    <a href="userProfile.html" class="hover:underline">Profile</a>
+  </div>
+</nav>
+
+  <!-- Profile Section -->
+  <section class="max-w-4xl mx-auto mt-8 bg-white shadow rounded-lg p-6">
+    <!-- Header -->
+    <div class="flex items-center space-x-6">
+      <div class="relative group">
+        <img id="profile-avatar" src="image-14.jpg" 
+             alt="User Avatar" class="w-24 h-24 rounded-full object-cover border">
+        <label for="avatar-upload" class="absolute bottom-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded cursor-pointer group-hover:block hidden">
+          Change
+        </label>
+        <input type="file" id="avatar-upload" accept="image/*" class="hidden">
+      </div>
+      <div>
+        <h2 class="text-2xl font-semibold">John cena</h2>
+        <p class="text-gray-600">@johndoe</p>
+        <p class="mt-2 text-gray-700">Traveler | Photographer | Storyteller</p>
+        <button class="mt-3 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+          Edit Profile
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="flex justify-around mt-6 border-t pt-4 text-center">
+      <div>
+        <p class="text-xl font-bold">24</p>
+        <p class="text-gray-600">Trips</p>
+      </div>
+      <div>
+        <p class="text-xl font-bold">180</p>
+        <p class="text-gray-600">Followers</p>
+      </div>
+      <div>
+        <p class="text-xl font-bold">75</p>
+        <p class="text-gray-600">Following</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Adventures -->
+  <section class="max-w-4xl mx-auto mt-8 px-4">
+    <h3 class="text-xl font-semibold mb-4">My Adventures</h3>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <img src="image-6.jpg" 
+             alt="Trip 1" class="w-full h-40 object-cover">
+        <div class="p-3">
+          <h4 class="font-semibold">Goa, India</h4>
+          <p class="text-gray-600 text-sm">Beach vibes 🌊</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1" 
+             alt="Trip 2" class="w-full h-40 object-cover">
+        <div class="p-3">
+          <h4 class="font-semibold">Ooty, India</h4>
+          <p class="text-gray-600 text-sm">Peaceful hills ⛰️</p>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <img src="image-7.jpg" 
+             alt="Trip 3" class="w-full h-40 object-cover">
+        <div class="p-3">
+          <h4 class="font-semibold">Dubai, UAE</h4>
+          <p class="text-gray-600 text-sm">City of dreams 🌆</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Settings -->
+  <section class="max-w-4xl mx-auto mt-10 bg-white shadow rounded-lg p-6">
+    <h3 class="text-xl font-semibold mb-4">Account Settings</h3>
+
+    <form class="space-y-4">
+      <!-- Change Email -->
+      <div>
+        <label class="block mb-1 font-medium">Email</label>
+        <input type="email" value="john@example.com" 
+               class="w-full px-4 py-2 border rounded-lg">
+      </div>
+
+      <!-- Change Password -->
+      <div>
+        <label class="block mb-1 font-medium">New Password</label>
+        <input type="password" placeholder="Enter new password" 
+               class="w-full px-4 py-2 border rounded-lg">
+      </div>
+
+      <!-- Privacy Settings -->
+      <div>
+        <label for="privacy-setting" class="block mb-1 font-medium">Privacy</label>
+        <select id="privacy-setting" class="w-full px-4 py-2 border rounded-lg">
+          <option>Public</option>
+          <option>Friends only</option>
+          <option>Private</option>
+        </select>
+      </div>
+
+      <!-- Save Button -->
+      <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">
+        Save Changes
+      </button>
+    </form>
+
+    <!-- Danger Zone -->
+    <div class="mt-6 border-t pt-4">
+      <h4 class="text-red-600 font-semibold mb-2">Danger Zone</h4>
+      <button class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+        Delete Account
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#a5e6c6] mt-12 py-6 text-center text-sm">
+    © 2025 Travner. All rights reserved.
+  </footer>
+
+  <!-- Edit Profile Modal -->
+<div id="edit-profile-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-lg p-6 max-w-md w-full relative">
+    <button id="close-edit-modal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+    <h3 class="text-xl font-bold mb-4">Edit Profile</h3>
+    <form id="edit-profile-form" class="space-y-4">
+      <div>
+        <label class="block mb-1 font-medium">Name</label>
+        <input type="text" id="edit-name" class="w-full px-4 py-2 border rounded-lg" value="John Doe">
+      </div>
+      <div>
+        <label class="block mb-1 font-medium">Username</label>
+        <input type="text" id="edit-username" class="w-full px-4 py-2 border rounded-lg" value="@johndoe">
+      </div>
+      <div>
+        <label class="block mb-1 font-medium">Bio</label>
+        <textarea id="edit-bio" class="w-full px-4 py-2 border rounded-lg" rows="2">Traveler | Photographer | Storyteller</textarea>
+      </div>
+      <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">Save</button>
+    </form>
+  </div>
+</div>
+<script>
+  // Modal logic
+  const editBtn = document.querySelector('button.bg-green-500');
+  const editModal = document.getElementById('edit-profile-modal');
+  const closeEditModal = document.getElementById('close-edit-modal');
+  const editForm = document.getElementById('edit-profile-form');
+
+  // Profile fields
+  const nameField = document.querySelector('.text-2xl.font-semibold');
+  const usernameField = document.querySelector('.text-gray-600');
+  const bioField = document.querySelector('.mt-2.text-gray-700');
+
+  editBtn.addEventListener('click', () => {
+    editModal.classList.remove('hidden');
+    // Pre-fill modal fields with current profile info
+    document.getElementById('edit-name').value = nameField.textContent;
+    document.getElementById('edit-username').value = usernameField.textContent;
+    document.getElementById('edit-bio').value = bioField.textContent;
+  });
+
+  closeEditModal.addEventListener('click', () => {
+    editModal.classList.add('hidden');
+  });
+
+  editForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Update profile info
+    nameField.textContent = document.getElementById('edit-name').value;
+    usernameField.textContent = document.getElementById('edit-username').value;
+    bioField.textContent = document.getElementById('edit-bio').value;
+    editModal.classList.add('hidden');
+  });
+
+  // Optional: Close modal when clicking outside modal content
+  editModal.addEventListener('click', function(e) {
+    if (e.target === editModal) {
+      editModal.classList.add('hidden');
+    }
+  });
+
+  // Avatar upload logic
+  const avatarInput = document.getElementById('avatar-upload');
+  const avatarImg = document.getElementById('profile-avatar');
+  avatarInput.addEventListener('change', function() {
+    if (avatarInput.files && avatarInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        avatarImg.src = e.target.result;
+      };
+      reader.readAsDataURL(avatarInput.files[0]);
+    }
+  });
+</script>
+</body>
+</html>

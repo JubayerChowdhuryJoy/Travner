@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travner - Landing Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body class="bg-[#a5e6c6]">
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center px-6 py-4 bg-[#a5e6c6]">
+        <a href="landingPage.html" class="text-xl font-bold hover:underline">Travner</a>
+        <div class="flex items-center space-x-6">
+            <a href="landingPage.html" class="hover:underline">Home</a>
+            <a href="explore.html" class="hover:underline">Explore</a>
+            <a href="signup.html" class="hover:underline">Create</a>
+            <a href="login.html" class="hover:underline">Log in</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative max-w-5xl mx-auto mt-6 rounded-xl overflow-hidden">
+        <img src="image-6.jpg" alt="Mountains" class="w-full h-96 object-cover">
+        <div
+            class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-white text-center px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Explore the World with Travner, Share Your Journey</h2>
+            <div class="space-x-4">
+                <a href="explore.html"
+                    class="bg-green-500 px-6 py-2 rounded-full text-white font-medium inline-block hover:bg-green-600 transition">Explore</a>
+                <a href="login.html"
+                    class="bg-white text-black px-6 py-2 rounded-full font-medium inline-block hover:bg-gray-200 transition">Log
+                    in</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Destinations -->
+    <section class="max-w-5xl mx-auto mt-12 px-4">
+    <h3 class="text-xl font-semibold mb-4">Featured Destinations</h3>
+    <div class="grid md:grid-cols-3 gap-4">
+        <div class="cursor-pointer featured-place" data-place="Dubai">
+            <img src="image-5.jpg" alt="Dubai" class="rounded-lg w-full h-40 object-cover place-img">
+            <p class="mt-2 font-bold place-name hover:underline cursor-pointer">Dubai</p>
+        </div>
+        <div class="cursor-pointer featured-place" data-place="Singapore">
+            <img src="image-6.jpg" alt="Singapore" class="rounded-lg w-full h-40 object-cover place-img">
+            <p class="mt-2 font-bold place-name hover:underline cursor-pointer">Singapore</p>
+        </div>
+        <div class="cursor-pointer featured-place" data-place="Manali">
+            <img src="image-7.jpg" alt="Manali, India" class="rounded-lg w-full h-40 object-cover place-img">
+            <p class="mt-2 font-bold place-name hover:underline cursor-pointer">Manali, India</p>
+        </div>
+    </div>
+    <!-- Details Modal -->
+    <div id="featured-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full relative">
+            <button id="close-featured-modal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+            <img id="featured-modal-img" src="" alt="" class="rounded-lg w-full h-40 object-cover mb-4">
+            <h3 id="featured-modal-title" class="font-bold text-xl mb-2"></h3>
+            <p id="featured-modal-desc" class="text-gray-700"></p>
+        </div>
+    </div>
+</section>
+<script>
+    // Details for each featured place
+    const featuredDetails = {
+        "Dubai": {
+            img: "image-5.jpg",
+            title: "Dubai",
+            desc: "Dubai is known for its modern architecture, luxury shopping, vibrant nightlife, and desert adventures. Visit the Burj Khalifa, Palm Jumeirah, and enjoy dune bashing."
+        },
+        "Singapore": {
+            img: "image-6.jpg",
+            title: "Singapore",
+            desc: "Singapore offers a blend of cultures, futuristic gardens, and delicious food. Don't miss Marina Bay Sands, Gardens by the Bay, and Sentosa Island."
+        },
+        "Manali": {
+            img: "image-7.jpg",
+            title: "Manali, India",
+            desc: "Manali is a Himalayan resort town known for its scenic beauty, adventure sports, and tranquil atmosphere. Explore Solang Valley, Rohtang Pass, and local markets."
+        }
+    };
+
+    // Modal logic
+    const featuredModal = document.getElementById('featured-modal');
+    const featuredModalImg = document.getElementById('featured-modal-img');
+    const featuredModalTitle = document.getElementById('featured-modal-title');
+    const featuredModalDesc = document.getElementById('featured-modal-desc');
+    const closeFeaturedModal = document.getElementById('close-featured-modal');
+
+    document.querySelectorAll('.featured-place').forEach(card => {
+        card.addEventListener('click', () => {
+            const place = card.getAttribute('data-place');
+            const details = featuredDetails[place];
+            if (details) {
+                featuredModalImg.src = details.img;
+                featuredModalTitle.textContent = details.title;
+                featuredModalDesc.textContent = details.desc;
+                featuredModal.classList.remove('hidden');
+            }
+        });
+        // Also allow clicking on image or name
+        card.querySelector('.place-img').addEventListener('click', (e) => {
+            e.stopPropagation();
+            card.click();
+        });
+        card.querySelector('.place-name').addEventListener('click', (e) => {
+            e.stopPropagation();
+            card.click();
+        });
+    });
+
+    closeFeaturedModal.addEventListener('click', () => {
+        featuredModal.classList.add('hidden');
+    });
+
+    // Close modal when clicking outside the modal content
+    featuredModal.addEventListener('click', (e) => {
+        if (e.target === featuredModal) {
+            featuredModal.classList.add('hidden');
+        }
+    });
+</script>
+
+    <!-- Adventures -->
+    <section class="max-w-5xl mx-auto mt-12 px-4">
+        <h3 class="text-xl font-semibold mb-4">Document Your Adventures</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+            <div>
+                <img src="image-11.jpg" alt="Adventure 1"
+                    class="rounded-lg w-full h-40 object-cover">
+                <p class="mt-2">Capture Every Moment</p>
+            </div>
+            <div>
+                <img src="image-12.jpg" alt="Adventure 2"
+                    class="rounded-lg w-full h-40 object-cover">
+                <p class="mt-2">Tell Your Story</p>
+            </div>
+            <div>
+                <img src="image-13.jpg" alt="Adventure 3"
+                    class="rounded-lg w-full h-40 object-cover">
+                <p class="mt-2">Plan Your Next Trip</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#a5e6c6] mt-12 py-10 border-t border-[#7fdcb0]">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 text-left text-[#2d6a4f]">
+        <!-- Brand/About -->
+        <div>
+            <h4 class="font-bold uppercase mb-2 tracking-wide">Travner</h4>
+            <p class="text-sm mb-4">Making campus life easier and more connected for students everywhere.</p>
+            <a href="mailto:info@travner.com" class="text-sm text-teal-700 hover:underline">info@travner.com</a>
+        </div>
+        <!-- Features -->
+        <div>
+            <h4 class="font-bold uppercase mb-2 tracking-wide">Features</h4>
+            <ul class="space-y-1 text-sm">
+                <li><a href="#" class="hover:underline">Community connectivity</a></li>
+                <li><a href="#" class="hover:underline">Tutoring</a></li>
+                <li><a href="#" class="hover:underline">Jobs</a></li>
+            </ul>
+        </div>
+        <!-- Support -->
+        <div>
+            <h4 class="font-bold uppercase mb-2 tracking-wide">Support</h4>
+            <ul class="space-y-1 text-sm">
+                <li><a href="#" class="hover:underline">Help Center</a></li>
+                <li><a href="#" class="hover:underline">Safety Center</a></li>
+                <li><a href="#" class="hover:underline">Community Guidelines</a></li>
+                <li><a href="#" class="hover:underline">Privacy Policy</a></li>
+                <li><a href="#" class="hover:underline">Terms of Service</a></li>
+            </ul>
+        </div>
+        <!-- Social/Connect -->
+        <div>
+            <h4 class="font-bold uppercase mb-2 tracking-wide">Connect</h4>
+            <div class="flex space-x-4 mt-1 text-xl">
+                <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="hover:text-teal-700 transition"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter" class="hover:text-teal-700 transition"><i class="fab fa-twitter"></i></a>
+                <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="hover:text-teal-700 transition"><i class="fab fa-facebook"></i></a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn" class="hover:text-teal-700 transition"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="text-center text-xs text-[#2d6a4f] mt-6">
+        © 2025 Travner. All rights reserved.
+        <span class="mx-2">|</span>
+        <a href="#" class="hover:underline">Privacy Policy</a>
+        <span class="mx-2">|</span>
+        <a href="#" class="hover:underline">Terms</a>
+    </div>
+</footer>
+</body>
+</html>

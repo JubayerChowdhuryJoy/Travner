@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travner - Social Media Post</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body {
+            background-color: #a5e6c6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        .post-card {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-white rounded-xl post-card overflow-hidden">
+        <!-- Header -->
+        <div class="bg-teal-700 p-4 text-white flex justify-between items-center">
+            <h1 class="text-xl font-bold">Travner</h1>
+            <div class="flex space-x-6">
+                <a href="landingPage.html"
+                    class="hover:underline text-white inline-flex items-center h-10 text-sm font-medium">Home</a>
+                <a href="explore.html"
+                    class="hover:underline text-white inline-flex items-center h-10 text-sm font-medium">Explore</a>
+                <a href="userProfile.html"
+                    class="hover:underline text-white inline-flex items-center h-10 text-sm font-medium">Profile</a>
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="p-4 border-b">
+            <h2 class="font-medium text-gray-700 mb-2">Preview</h2>
+            <div id="preview-area"
+                class="bg-gray-100 h-40 rounded-lg flex flex-col items-center justify-center cursor-pointer relative overflow-hidden">
+                <i class="fas fa-image text-3xl text-gray-400 mb-2" id="preview-icon"></i>
+                <span class="text-gray-500 text-sm" id="preview-text">
+                    Drag and drop photos and videos here or
+                    <span class="underline cursor-pointer text-teal-600"
+                        onclick="document.getElementById('file-input').click()">browse files</span>
+                </span>
+                <input type="file" id="file-input" class="hidden" accept="image/*,video/*" multiple>
+            </div>
+        </div>
+        <script>
+            const previewArea = document.getElementById('preview-area');
+            const fileInput = document.getElementById('file-input');
+            const previewIcon = document.getElementById('preview-icon');
+            const previewText = document.getElementById('preview-text');
+
+            previewArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', function () {
+                // Clear previous preview
+                previewIcon.style.display = 'none';
+                previewText.style.display = 'none';
+                // Remove any previous media
+                const oldMedia = previewArea.querySelector('.preview-media');
+                if (oldMedia) oldMedia.remove();
+
+                if (fileInput.files && fileInput.files[0]) {
+                    const file = fileInput.files[0];
+                    let media;
+                    if (file.type.startsWith('image/')) {
+                        media = document.createElement('img');
+                        media.src = URL.createObjectURL(file);
+                        media.className = 'preview-media max-h-36 rounded-lg object-contain';
+                    } else if (file.type.startsWith('video/')) {
+                        media = document.createElement('video');
+                        media.src = URL.createObjectURL(file);
+                        media.className = 'preview-media max-h-36 rounded-lg object-contain';
+                        media.controls = true;
+                    }
+                    if (media) {
+                        previewArea.appendChild(media);
+                    }
+                } else {
+                    previewIcon.style.display = '';
+                    previewText.style.display = '';
+                }
+            });
+        </script>
+
+        <!-- Location -->
+        <div class="p-4 border-b">
+            <label class="block text-gray-700 font-medium mb-2">Location</label>
+            <input type="text"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                placeholder="Add location">
+        </div>
+
+        <!-- Tag Friends -->
+        <div class="p-4 border-b">
+            <label class="block text-gray-700 font-medium mb-2">Tag Friends</label>
+            <input type="text"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                placeholder="Tag people">
+        </div>
+
+        <!-- Publish, Upload, and Cancel Buttons -->
+        <!-- Publish, Upload, and Cancel Buttons -->
+        <div class="p-4 flex space-x-3">
+            <button id="upload-btn" class="flex-1 bg-blue-500 text-white py-3 rounded-lg font-medium hover:bg-blue-600">
+                Upload
+            </button>
+            <button id="cancel-btn"
+                class="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-400">
+                Cancel
+            </button>
+        </div>
+        <div id="upload-message" class="p-4 text-center text-green-600 font-medium hidden">
+            Upload successful!
+        </div>
+        <script>
+            const uploadBtn = document.getElementById('upload-btn');
+            const cancelBtn = document.getElementById('cancel-btn');
+            const uploadMessage = document.getElementById('upload-message');
+            // previewArea, previewIcon, previewText, and fileInput are already declared above
+
+            function clearPreview() {
+                const oldMedia = previewArea.querySelector('.preview-media');
+                if (oldMedia) oldMedia.remove();
+                previewIcon.style.display = '';
+                previewText.style.display = '';
+                fileInput.value = '';
+            }
+
+            uploadBtn.addEventListener('click', () => {
+                // Simulate upload
+                if (fileInput.files && fileInput.files.length > 0) {
+                    uploadMessage.textContent = "Upload successful!";
+                    uploadMessage.classList.remove('hidden');
+                    uploadMessage.classList.remove('text-red-600');
+                    uploadMessage.classList.add('text-green-600');
+                    clearPreview(); // Remove preview like cancel
+                    setTimeout(() => {
+                        uploadMessage.classList.add('hidden');
+                    }, 2000);
+                } else {
+                    uploadMessage.textContent = "Please select a file to upload!";
+                    uploadMessage.classList.remove('hidden');
+                    uploadMessage.classList.remove('text-green-600');
+                    uploadMessage.classList.add('text-red-600');
+                    setTimeout(() => {
+                        uploadMessage.classList.add('hidden');
+                        uploadMessage.classList.remove('text-red-600');
+                        uploadMessage.textContent = "Upload successful!";
+                    }, 2000);
+                }
+            });
+
+            cancelBtn.addEventListener('click', () => {
+                clearPreview();
+                uploadMessage.textContent = "Upload cancelled!";
+                uploadMessage.classList.remove('hidden');
+                uploadMessage.classList.remove('text-green-600');
+                uploadMessage.classList.add('text-red-600');
+                setTimeout(() => {
+                    uploadMessage.classList.add('hidden');
+                    uploadMessage.classList.remove('text-red-600');
+                    uploadMessage.textContent = "Upload successful!";
+                }, 2000);
+            });
+        </script>
+
+    </div>
+</body>
+
+</html>
